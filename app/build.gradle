@@ -6,6 +6,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'dagger.hilt.android.plugin'
 
+apply plugin:  'kotlin-parcelize'
+
 android {
     compileSdkVersion 31
     defaultConfig {

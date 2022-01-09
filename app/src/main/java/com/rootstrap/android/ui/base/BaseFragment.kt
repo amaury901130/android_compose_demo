@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.rootstrap.android.R
+import com.rootstrap.android.theme.AppTheme
 import com.rootstrap.android.util.LoadingDialogUtil
 import com.rootstrap.android.util.NetworkState
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ open class BaseFragment : Fragment(), BaseView {
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
         setContent {
-            Text(text = "Hello world.")
+            AppTheme(view = ComposableView())
         }
     }
 
