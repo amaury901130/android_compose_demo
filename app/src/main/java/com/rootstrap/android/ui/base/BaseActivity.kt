@@ -1,13 +1,15 @@
 package com.rootstrap.android.ui.base
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.rootstrap.android.util.LoadingDialogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("Registered")
 @AndroidEntryPoint
 open class BaseActivity : AppCompatActivity(), BaseView {
-    }
 
     override fun showProgress() {
         LoadingDialogUtil.showProgress(this)

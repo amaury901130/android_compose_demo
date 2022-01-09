@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.rootstrap.android.R
 import com.rootstrap.android.databinding.FragmentSignInBinding
-import com.rootstrap.android.metrics.Analytics
-import com.rootstrap.android.metrics.PageEvents
-import com.rootstrap.android.metrics.VISIT_SIGN_IN
 import com.rootstrap.android.network.models.User
-import com.rootstrap.android.ui.activity.main.SignInActivityViewModel
-import com.rootstrap.android.ui.activity.main.SignInState
+import com.rootstrap.android.ui.viewmodel.SignInActivityViewModel
+import com.rootstrap.android.ui.viewmodel.SignInState
 import com.rootstrap.android.ui.base.BaseFragment
 import com.rootstrap.android.util.extensions.value
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +33,6 @@ class SignInFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Analytics.track(PageEvents.visit(VISIT_SIGN_IN))
         setUpView()
         setObservers()
     }

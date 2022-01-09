@@ -7,7 +7,6 @@ import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.rootstrap.android.BuildConfig
-import com.squareup.otto.Bus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,8 +43,4 @@ class UtilModule {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
-
-    @Provides
-    @Singleton
-    fun provideBus(): Bus = Bus()
 }
