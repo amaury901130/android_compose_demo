@@ -196,10 +196,6 @@ dependencies {
     //security crypto
     implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
-    //nav component
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.4.0'
     // Compose Material Design
@@ -210,6 +206,8 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling:1.0.5'
     // Integration with ViewModels
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
+    // navigation compose
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-rc01'
     // UI Tests
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.0.5'
 }

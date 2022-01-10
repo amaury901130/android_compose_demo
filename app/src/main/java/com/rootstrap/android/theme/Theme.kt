@@ -16,6 +16,12 @@ private val DarkThemeColors = darkColors(
     primaryVariant = Dark.primaryDark,
     background = Color.Yellow,
     onPrimary = Dark.onPrimary
+    /* Other default colors to override
+       surface = Color.White,
+       onSecondary = Color.Black,
+       onBackground = Color.Black,
+       onSurface = Color.Black,
+     */
 )
 
 private val LightThemeColors = lightColors(
@@ -23,12 +29,19 @@ private val LightThemeColors = lightColors(
     secondary = Light.secondary,
     primaryVariant = Light.primaryDark,
     background = Color.White,
-    onPrimary = Light.onPrimary
+    onPrimary = Light.onPrimary,
+    surface = Color.White,
+    onSecondary = Color.Black,
+    onBackground = Color.Black,
+    onSurface = Color.Black,
 )
 
 @Composable
-fun AppTheme(isDarkTheme: Boolean = false, @NonNull view: Unit) {
+fun AppTheme(isDarkTheme: Boolean = false, @NonNull content: @Composable () -> Unit) {
     MaterialTheme(
-        colors = if (isDarkTheme) DarkThemeColors else LightThemeColors
-    ) { view }
+        colors = if (isDarkTheme) DarkThemeColors else LightThemeColors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
 }

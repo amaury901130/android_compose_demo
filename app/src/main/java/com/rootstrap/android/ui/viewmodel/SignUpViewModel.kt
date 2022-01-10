@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class SignUpActivityViewModel @Inject constructor(
+open class SignUpViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val userManager: UserManager,
 ) : BaseViewModel() {
@@ -27,10 +27,10 @@ open class SignUpActivityViewModel @Inject constructor(
     val state: LiveData<SignUpState>
         get() = _state
 
-    val _email = MutableStateFlow(InputWrapper())
+    private val _email = MutableStateFlow(InputWrapper())
     val email: StateFlow<InputWrapper> = _email
 
-    val _password = MutableStateFlow(InputWrapper())
+    private val _password = MutableStateFlow(InputWrapper())
     val password: StateFlow<InputWrapper> = _password
 
     val areInputsValid = combine(email, password) { name, password ->
