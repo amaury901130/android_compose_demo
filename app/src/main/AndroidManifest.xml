@@ -17,7 +17,7 @@
         tools:ignore="AllowBackup,LockedOrientationActivity"
         tools:targetApi="n">
         <activity
-            android:name=".ui.AppComposeActivity"
+            android:name=".ui.AppActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

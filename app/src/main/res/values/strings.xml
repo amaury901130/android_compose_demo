@@ -17,6 +17,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="got_account">Already registered? Sign in!</string>
+    <string name="got_new_account">Doesn\'t have an account, Sign up!</string>
     <string name="sign_up">Sign Up</string>
 
     <!-- Sign In -->
@@ -27,4 +28,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="default_error">Oops! Network error</string>
     <string name="profile">Profile</string>
+
+
 </resources>

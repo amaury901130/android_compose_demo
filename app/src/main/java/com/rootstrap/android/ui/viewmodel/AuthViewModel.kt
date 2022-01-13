@@ -12,52 +12,75 @@ import com.rootstrap.android.util.NetworkState
 import com.rootstrap.android.util.extensions.ApiErrorType
 import com.rootstrap.android.util.extensions.ApiException
 import com.rootstrap.android.util.extensions.isEmail
+import com.rootstrap.android.util.isValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class SignUpViewModel @Inject constructor(
+open class AuthViewModel @Inject constructor(
     private val sessionManager: SessionManager,
     private val userManager: UserManager,
 ) : BaseViewModel() {
 
-    private val _state = MutableLiveData<SignUpState>()
-    val state: LiveData<SignUpState>
+    private val _state = MutableLiveData<AuthState>()
+    val state: LiveData<AuthState>
         get() = _state
 
     private val _email = MutableStateFlow(InputWrapper())
     val email: StateFlow<InputWrapper> = _email
 
+    private val _name = MutableStateFlow(InputWrapper())
+    val name: StateFlow<InputWrapper> = _name
+
     private val _password = MutableStateFlow(InputWrapper())
     val password: StateFlow<InputWrapper> = _password
 
-    val areInputsValid = combine(email, password) { name, password ->
-        name.value.isEmail() && name.errorId == null && password.value.isNotEmpty() && password.errorId == null
+    val areInputsValid = combine(email, password, name) { email, password, name ->
+        email.content.isEmail() && email.isValid() &&
+                password.isValid() && name.isValid()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
     fun onPasswordEntered(input: String) {
         //validate and send error
         val errorId = null
         _password.tryEmit(
-            this.password.value.copy(value = input, errorId = errorId)
+            this.password.value.copy(content = input, errorId = errorId)
+        )
+    }
+
+    fun onEmailEntered(input: String) {
+        //validate and send error
+        val errorId = null
+        _email.tryEmit(
+            this.email.value.copy(content = input, errorId = errorId)
         )
     }
 
     fun onNameEntered(input: String) {
         //validate and send error
         val errorId = null
-        _email.tryEmit(
-            this.email.value.copy(value = input, errorId = errorId)
+        _name.tryEmit(
+            this.name.value.copy(content = input, errorId = errorId)
         )
     }
 
     fun onSignUp() {
         signUp(
             User(
-                email = email.value.value,
-                password = password.value.value
+                email = email.value.content,
+                password = password.value.content,
+                firstName = name.value.content
+            )
+        )
+    }
+
+    fun onSignIn() {
+        signIn(
+            User(
+                email = email.value.content,
+                password = password.value.content
             )
         )
     }
@@ -73,7 +96,24 @@ open class SignUpViewModel @Inject constructor(
                 }
 
                 _networkState.value = NetworkState.idle
-                _state.value = SignUpState.signUpSuccess
+                _state.value = AuthState.signUpSuccess
+            } else {
+                handleError(result.exceptionOrNull())
+            }
+        }
+    }
+
+    private fun signIn(user: User) {
+        _networkState.value = NetworkState.loading
+        viewModelScope.launch {
+            val result = userManager.signIn(user = user)
+            if (result.isSuccess) {
+                result.getOrNull()?.value?.user?.let { user ->
+                    sessionManager.signIn(user)
+                }
+
+                _networkState.value = NetworkState.idle
+                _state.value = AuthState.signInSuccess
             } else {
                 handleError(result.exceptionOrNull())
             }
@@ -87,11 +127,13 @@ open class SignUpViewModel @Inject constructor(
 
         _networkState.value = NetworkState.idle
         _networkState.value = NetworkState.error
-        _state.value = SignUpState.signUpFailure
+        _state.value = AuthState.signUpFailure
     }
 }
 
-enum class SignUpState {
+enum class AuthState {
     signUpFailure,
-    signUpSuccess
+    signUpSuccess,
+    signInFailure,
+    signInSuccess
 }

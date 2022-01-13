@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.provider.Settings
 import androidx.core.content.ContextCompat.checkSelfPermission
 
@@ -17,7 +16,7 @@ interface PermissionResponse {
 val REQUEST_PERMISSION_REQUEST_CODE = 999
 
 fun Context.checkPermission(permission: String): Boolean =
-    Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(
+    checkSelfPermission(
         this,
         permission
     ) == PackageManager.PERMISSION_GRANTED

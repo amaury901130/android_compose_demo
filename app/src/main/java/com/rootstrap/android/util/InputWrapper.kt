@@ -5,6 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class InputWrapper(
- val value: String = "",
+ val content: String = "",
  val errorId: Int? = null
 ) : Parcelable
+
+fun InputWrapper.isValid() : Boolean = this.content.trim().isNotEmpty() && this.errorId != null
