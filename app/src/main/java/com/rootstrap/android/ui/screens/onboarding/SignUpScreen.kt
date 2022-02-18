@@ -48,17 +48,13 @@ fun SingUpScreen(viewModel: AuthViewModel = hiltViewModel()) {
             label = context.getString(R.string.password)
         )
         PrimaryButton(
-            modifier = Modifier
-                .padding(0.dp)
-                .padding(Spacing.l),
+            modifier = Modifier.padding(Spacing.l),
             onClick = viewModel::onSignUp,
             isEnableStateFlow = viewModel.areInputsValid,
             text = context.getString(R.string.sign_up)
         )
         TextButton(
-            modifier = Modifier
-                .padding(0.dp)
-                .padding(Spacing.l),
+            modifier = Modifier.padding(Spacing.l),
             onClick = { navActions.navigateTo(MainDestinations.ROUTE_SIGN_IN) },
             content = { Text(context.getString(R.string.got_account)) }
         )

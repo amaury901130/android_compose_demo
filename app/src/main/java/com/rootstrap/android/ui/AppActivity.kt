@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.rootstrap.android.R
@@ -17,26 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 open class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_AppCompat_Light_NoActionBar)
+        setTheme(R.style.AppTheme)
         setContent {
             AppTheme {
-                App()
+                AppNavGraph()
             }
         }
-    }
-}
-
-@Composable
-fun App() {
-    val navController = rememberNavController()
-    val scaffoldState = rememberScaffoldState()
-
-    Scaffold(
-        scaffoldState = scaffoldState,
-    ) {
-        AppNavGraph(
-            navController = navController,
-            scaffoldState = scaffoldState
-        )
     }
 }

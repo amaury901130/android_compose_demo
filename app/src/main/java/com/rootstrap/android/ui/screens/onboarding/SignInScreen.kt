@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.rootstrap.android.R
 import com.rootstrap.android.theme.Spacing
@@ -21,6 +21,7 @@ import com.rootstrap.android.ui.components.PrimaryButton
 import com.rootstrap.android.ui.navActions
 import com.rootstrap.android.ui.viewmodel.AuthViewModel
 
+@Preview
 @Composable
 fun SingInScreen(viewModel: AuthViewModel = hiltViewModel()) {
     val context = LocalContext.current
@@ -42,17 +43,13 @@ fun SingInScreen(viewModel: AuthViewModel = hiltViewModel()) {
             label = context.getString(R.string.password)
         )
         PrimaryButton(
-            modifier = Modifier
-                .padding(0.dp)
-                .padding(Spacing.l),
+            modifier = Modifier.padding(Spacing.l),
             onClick = viewModel::onSignIn,
             isEnableStateFlow = viewModel.areInputsValid,
             text = context.getString(R.string.sign_in)
         )
         TextButton(
-            modifier = Modifier
-                .padding(0.dp)
-                .padding(Spacing.l),
+            modifier = Modifier.padding(Spacing.l),
             onClick = { navActions.navigateUp() },
             content = { Text(context.getString(R.string.got_new_account)) }
         )

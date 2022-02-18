@@ -27,7 +27,7 @@ fun EditTextLayout(
     val inputWrapperState by inputWrapperStateFlow.collectAsState()
     Column {
         TextField(
-            modifier = Modifier.padding(0.dp).padding(vertical = Spacing.l),
+            modifier = Modifier.padding(vertical = Spacing.l),
             label = { Text(label) },
             value = inputWrapperState.content,
             onValueChange = { onValueChange(it) },
